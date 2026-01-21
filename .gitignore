@@ -1,0 +1,11 @@
+.env
+minio_data/
+postgres_data/
+metabase_data/
+data/
+__pycache__/
+*.pyc
+airflow/logs/
+spark/logs/
+.vscode/
+.idea/
