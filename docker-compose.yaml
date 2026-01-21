@@ -1,5 +1,5 @@
 services:
-  # PostgreSQL
+  #PostgreSQL
   postgres:
     image: postgres:15
     container_name: postgres
@@ -20,7 +20,7 @@ services:
     networks:
       - taxi-network
 
-  # MinIO
+  #MinIO
   minio:
     image: minio/minio:latest
     container_name: minio
@@ -41,7 +41,7 @@ services:
     networks:
       - taxi-network
 
-  # MinIO Client
+  #MinIO Client
   minio-client:
     image: minio/mc:latest
     container_name: minio-client
@@ -59,7 +59,7 @@ services:
     networks:
       - taxi-network
 
-  # Spark Master
+  #Spark master
   spark-master:
     build:
       context: ./spark
@@ -77,7 +77,7 @@ services:
     networks:
       - taxi-network
 
-  # Spark Worker
+  #Spark worker
   spark-worker:
     build:
       context: ./spark
@@ -99,7 +99,7 @@ services:
     networks:
       - taxi-network
 
-  # Airflow Webserver
+  # Airflow webserver
   airflow-webserver:
     image: custom-airflow:2.8.1
     pull_policy: never
@@ -142,6 +142,7 @@ services:
     networks:
       - taxi-network
 
+# Airflow scheduler
   airflow-scheduler:
     image: custom-airflow:2.8.1
     pull_policy: never
@@ -172,7 +173,7 @@ services:
     networks:
       - taxi-network
 
-  # Metabase
+  #Metabase
   metabase:
     image: metabase/metabase:latest
     container_name: metabase

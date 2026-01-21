@@ -6,7 +6,7 @@ import os
 from botocore.exceptions import ClientError
 
 def download_and_upload(year_month):
-    # MinIO configuration
+    #minIO configuration
     minio_endpoint = os.getenv('MINIO_ENDPOINT', 'minio:9000')
     minio_access_key = os.getenv('MINIO_ACCESS_KEY', 'minioadmin')
     minio_secret_key = os.getenv('MINIO_SECRET_KEY', 'minioadmin123')
@@ -14,7 +14,6 @@ def download_and_upload(year_month):
     bucket_name = 'nyc-taxi-raw'
     object_key = f'{year_month}.parquet'
     
-    # S3 Client
     s3_client = boto3.client(
         's3',
         endpoint_url=f'http://{minio_endpoint}',
@@ -24,7 +23,7 @@ def download_and_upload(year_month):
         region_name='us-east-1'
     )
     
-    # --- CHECK EXISTING FILE ---
+    # --- check existing file ---
     try:
         obj = s3_client.head_object(Bucket=bucket_name, Key=object_key)
         size = obj['ContentLength']
@@ -36,26 +35,23 @@ def download_and_upload(year_month):
     except ClientError:
         print(f"File {object_key} not found. Downloading...")
 
-    # --- DOWNLOAD LOGIC ---
+    # --- download ---
     url = f"https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_{year_month}.parquet"
     print(f"Downloading from {url}")
     
-    # FIX: Add Headers to mimic a browser
+    #headers to mimic a browser
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
-    
-    # Stream the download
     response = requests.get(url, headers=headers, stream=True)
-    
     if response.status_code != 200:
         raise Exception(f"Failed to download: HTTP {response.status_code}")
     
-    # Upload to MinIO
+    #upload to minio
     print(f"Uploading to minio://{bucket_name}/{object_key}")
     s3_client.upload_fileobj(response.raw, bucket_name, object_key)
     
-    # --- FINAL VERIFICATION ---
+    # --- verify ---
     obj_metadata = s3_client.head_object(Bucket=bucket_name, Key=object_key)
     uploaded_size = obj_metadata['ContentLength']
     

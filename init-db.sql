@@ -1,8 +1,8 @@
--- 1. Create databases (Safe Fix for Postgres Error)
+--create databases
 CREATE DATABASE airflow;
 CREATE DATABASE metabase;
 
--- 2. Create tables for aggregated data in the default DB
+--create tables for aggregated data in the default DB
 CREATE TABLE IF NOT EXISTS aggregated_zones (
     zone_id INTEGER,
     pickup_datetime TIMESTAMP,
