@@ -8,18 +8,18 @@
 ![Postgres](https://img.shields.io/badge/Postgres-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Metabase](https://img.shields.io/badge/Metabase-509EE3?style=for-the-badge&logo=metabase&logoColor=white)
 
-## 📌 Executive Summary
+## Executive Summary
 An automated, containerized ELT pipeline that ingests, cleans, and aggregates **12 months of NYC Yellow Taxi data** (~130 million trips). Designed for scalability, the architecture utilizes a local S3-compatible Data Lake (MinIO) and distributed processing (Apache Spark) to overcome single-machine memory constraints.
 
 The final output serves a BI Dashboard (Metabase) and generates programmatic geospatial heatmaps.
 
-### 🎥 The Result: 2016 NYC Traffic Timelapse
+### Result: 2016 NYC Traffic Timelapse
 *(Generated via Python/GeoPandas from the fully processed Data Warehouse)*
 ![NYC Taxi Timelapse](visuals/nyc_taxi_2016.gif)
 
 ---
 
-## 🏗 Architecture
+## Architecture
 The pipeline enforces a strict separation of compute and storage, mirroring enterprise-grade cloud architectures.
 
 ```mermaid
@@ -42,7 +42,7 @@ graph LR
 
 ---
 
-## 🛠 Engineering Challenges & Solutions
+## Engineering Challenges & Solutions
 
 | Challenge | Solution |
 |-----------|----------|
@@ -53,7 +53,7 @@ graph LR
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 ### Prerequisites
 * Docker Desktop (Allocated at least 8GB RAM / 4 CPUs)
@@ -84,7 +84,7 @@ graph LR
    * **MinIO:** `http://localhost:9001`
    * **Metabase:** `http://localhost:3000`
 
-## 📊 Dashboard Snapshot
+## Dashboard Snapshot
 ![Metabase Dashboard](visuals/image_2026-01-21_223616329.png)
 *Static dashboard showing peak hours, top revenue zones, and outlier detection.*
 ```
